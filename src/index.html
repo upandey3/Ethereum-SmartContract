@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Dutch Auction</title>
+
+    <!-- Materialize -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/css/materialize.min.css">
+    <style>
+      .no-uppercase {
+        text-transform: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Dutch Auction</h1>
+
+      <div id='contract-forms-container' class='row'>
+        <!-- Access Contract Form -->
+        <form id="access-contract-form" class="col s12">
+          <h3>Access Contract</h3>
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="access-address-input" type="text" class="validate" placeholder="0x692a70d2e424a56d2c6c27aa97d1a86395877b3a" required>
+              <label for="access-address-input">Contract Address</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <textarea id="access-abi-input" class="materialize-textarea" placeholder='[{ "type":"contructor", "inputs": [{ "name":"param1", "type":"uint256", "indexed":true }], "name":"Event" }, { "type":"function", "inputs": [{"name":"a", "type":"uint256"}], "name":"foo", "outputs": [] }]' required></textarea>
+              <label for="access-abi-input">ABI / JSON Interface</label>
+            </div>
+          </div>
+          <button class="btn waves-effect waves-light" type="submit" name="action">
+            ACCESS
+          </button>
+        </form>
+
+        <!--  Deploy Contract form-->
+        <form id="deploy-contract-form" class="col s12">
+          <h3>Deploy Contract</h3>
+          <div class="row">
+            <div class="input-field col s6">
+              <input id="deploy-initialPrice-input" type="number" class="validate" placeholder="20" min="0" step="any" required>
+              <label for="deploy-initialPrice-input">Initial Price (ether)</label>
+            </div>
+            <div class="input-field col s6">
+              <input id="deploy-biddingPeriod-input" type="number" class="validate" placeholder="10" min="0" step="any" required>
+              <label for="deploy-biddingPeriod-input">Bidding Period (blocks)</label>
+            </div>
+            <div class="input-field col s6">
+              <input id="deploy-offerPriceDecrement-input" type="number" class="validate" placeholder="1" min="0" step="any" required>
+              <label for="deploy-offerPriceDecrement-input">Offer Price Decrement (ether)</label>
+            </div>
+            <div class="input-field col s6">
+              <input id="deploy-gas-input" type="number" class="validate" placeholder="3000000" min="0" step="any" required>
+              <label for="deploy-gas-input">Gas Limit (wei)</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <textarea id="deploy-bytecode-input" class="materialize-textarea" placeholder='60606040526000600160006101000a81548160ff021916908315150217905550341561002a57600080fd5b604051608080610441833981016040528080519060200190919080519060200190919080519060200190919080519060200190919050505b80600160006101000a81548160ff021916908315150217905550336001806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055505b505050505b610370806100d16000396000f30060606040523615610081576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680631998aeef1461008657806348390abb146100d05780634bb278f3146100e5578063588fd2f3146100fa5780635fe222a21461014f5780639d1b464a14610172578063fcff09411461019b575b600080fd5b61008e6101c8565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b34156100db57600080fd5b6100e36101ce565b005b34156100f057600080fd5b6100f8610250565b005b341561010557600080fd5b61010d6102af565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b341561015a57600080fd5b61017060048080359060200190919050506102b5565b005b341561017d57600080fd5b610185610338565b6040518082815260200191505060405180910390f35b34156101a657600080fd5b6101ae61033e565b604051808215151515815260200191505060405180910390f35b60005b90565b6001809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614151561022957600080fd5b600160009054906101000a900460ff16151561024457600080fd5b600080819055505b5b5b565b6001809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff161415156102ab57600080fd5b5b5b565b60005b90565b6001809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614151561031057600080fd5b600160009054906101000a900460ff16151561032b57600080fd5b806000819055505b5b5b50565b60005b90565b60005b905600a165627a7a72305820b5ed42e4861922be452d036c6dca03a9be17f30c84304f198c713ccf42b1a85e0029' required></textarea>
+              <label for="deploy-bytecode-input">Bytecode</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <textarea id="deploy-abi-input" class="materialize-textarea" placeholder='[{ "type":"contructor", "inputs": [{ "name":"param1", "type":"uint256", "indexed":true }], "name":"Event" }, { "type":"function", "inputs": [{"name":"a", "type":"uint256"}], "name":"foo", "outputs": [] }]' required></textarea>
+              <label for="deploy-abi-input">ABI / JSON Interface</label>
+            </div>
+          </div>
+          <div class='row'>
+            <div class="col s6">
+              <button class="btn waves-effect waves-light" type="submit" name="action">
+                DEPLOY
+              </button>
+            </div>
+            <div class="switch col s6">
+              <label for="deploy-testMode-input">Test Mode</label>
+              <br/>
+              <label>
+                Off
+                <input id="deploy-testMode-input" type="checkbox">
+                <span class="lever"></span>
+                On
+              </label>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <!-- Contract UI -->
+      <div id='contract-controls-container' class='row'>
+        <!-- Interact with the contract here. -->
+        <h3>Constant Functions</h3>
+        <div id='constant-functions-controls' class='col s12'>
+
+        </div>
+
+        <h3>Mutating Functions</h3>
+        <div id='mutating-functions-controls' class='col s12'>
+
+        </div>
+      </div>
+    </div>
+
+    <!--Import jQuery before materialize.js-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/web3.min.js"></script>
+    <script src="js/dom-helpers.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>
